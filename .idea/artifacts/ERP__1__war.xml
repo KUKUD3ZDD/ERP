@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ERP (1):war">
+    <output-path>$PROJECT_DIR$/../project/ERP/target</output-path>
+    <root id="archive" name="ssm.war">
+      <element id="artifact" artifact-name="ERP (1):war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ERP" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="ERP/web/Web" />
+    </root>
+  </artifact>
+</component>

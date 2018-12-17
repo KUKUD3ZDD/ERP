@@ -1,0 +1,425 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.zking</groupId>
+  <artifactId>ERP</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>ssm Maven Webapp</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+    <mybatis-generator-maven-plugin>1.3.2</mybatis-generator-maven-plugin>
+
+    <!--添加相关依赖-->
+    <!--注：spring 5.0.1.RELEASE有冲突-->
+
+    <!--1.添加spring相关依赖(5.0.2.RELEASE)-->
+    <!--spring-core-->
+    <!--spring-beans-->
+    <!--spring-context-->
+    <!--spring-orm-->
+    <!--spring-tx-->
+    <!--spring-aspects-->
+    <!--spring-web-->
+    <spring.version>5.0.2.RELEASE</spring.version>
+
+    <!--2.添加mybatis相关依赖-->
+    <!--mybatis核心：mybatis(3.4.5)-->
+    <mybatis.version>3.4.5</mybatis.version>
+    <!--Mybatis分页：pagehelper(5.1.2)-->
+    <pagehelper.version>5.1.2</pagehelper.version>
+
+    <!--3.spring整合mybatis(1.3.1)-->
+    <!--mybatis-spring-->
+    <mybatis-spring.version>1.3.1</mybatis-spring.version>
+
+    <!--4.添加dbcp2连接池-->
+    <!--commons-dbcp2(2.1.1)-->
+    <commons-dbcp2.version>2.1.1</commons-dbcp2.version>
+    <!--commons-pool2(2.4.3)-->
+    <commons-pool2.verison>2.4.3</commons-pool2.verison>
+
+    <!--5.添加日志配置(2.9.1)-->
+    <!--log4j-core-->
+    <!--log4j-api-->
+    <!--log4j-web-->
+    <log4j2.version>2.9.1</log4j2.version>
+    <log4j2.disruptor.version>3.2.0</log4j2.disruptor.version>
+    <slf4j.version>1.7.13</slf4j.version>
+
+    <!--6.其他-->
+    <!--junit(4.12)-->
+    <junit.version>4.12</junit.version>
+    <!--mysql(5.1.44)-->
+    <mysql.version>5.1.44</mysql.version>
+    <!--javax.servlet-api(4.0.0)-->
+    <servlet-api.version>4.0.0</servlet-api.version>
+    <!--lombok(1.18.2)-->
+    <lombok.version>1.18.2</lombok.version>
+    <!--JSTL依赖-->
+    <jstl.version>1.2</jstl.version>
+    <standard.version>1.1.2</standard.version>
+    <!--添加jackson相关依赖-->
+    <jackson.vesion>2.9.3</jackson.vesion>
+    <!--文件上传下载-->
+    <commons-fileupload.version>1.3.3</commons-fileupload.version>
+    <!--Shiro权限-->
+    <shiro.verison>1.2.5</shiro.verison>
+
+    <!--7.mybatis与ehcache二级缓存相关依赖-->
+    <!--ehcache依赖-->
+    <ehcache.version>2.10.0</ehcache.version>
+    <!--mybatis与ehcache整合-->
+    <mybatis.ehcache.version>1.1.0</mybatis.ehcache.version>
+
+
+
+  </properties>
+
+  <dependencies>
+    <!-- ********************** spring依赖 ********************** -->
+    <!--1)spring核心依赖-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!--spring ioc依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!--spring 扩展依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!--2)spring dao层依赖-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!--3)aop相关依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!--4)spring web相关依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!--5) spring test相关依赖 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <!-- ********************** mybatis相关依赖 ********************** -->
+    <!--1.mybatis核心-->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>${mybatis.version}</version>
+    </dependency>
+    <!--2.Mybatis分页-->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>${pagehelper.version}</version>
+    </dependency>
+
+    <!-- ********************** spring整合mybatis相关依赖 ********************** -->
+    <!--1.mybatis-spring-->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>${mybatis-spring.version}</version>
+    </dependency>
+
+    <!-- ********************** dbcp2连接池相关依赖 ********************** -->
+    <!--1.commons-dbcp2(2.1.1)-->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-dbcp2</artifactId>
+      <version>${commons-dbcp2.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>commons-pool2</artifactId>
+          <groupId>org.apache.commons</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!--2.commons-pool2(2.4.3)-->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-pool2</artifactId>
+      <version>${commons-pool2.verison}</version>
+    </dependency>
+
+    <!-- ********************** 日志相关依赖 ********************** -->
+    <!-- log配置：Log4j2 + Slf4j -->
+    <!--核心log4j2jar包-->
+    <!--1.log4j-core-->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+    <!--2.log4j-api-->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+    <!--3.log4j-web-->
+    <!--web工程需要包含log4j-web，非web工程不需要-->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-web</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <!-- slf4j核心包-->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!--用于与slf4j保持桥接-->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j2.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>slf4j-api</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!--需要使用log4j2的AsyncLogger需要包含disruptor-->
+    <dependency>
+      <groupId>com.lmax</groupId>
+      <artifactId>disruptor</artifactId>
+      <version>${log4j2.disruptor.version}</version>
+    </dependency>
+    <!-- ********************** mybatis与ehcache相关依赖 ********************** -->
+    <!--spring对ehcache的相关支持-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <!--mybatis与ehcache整合-->
+    <dependency>
+      <groupId>org.mybatis.caches</groupId>
+      <artifactId>mybatis-ehcache</artifactId>
+      <version>${mybatis.ehcache.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>slf4j-api</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>ehcache-core</artifactId>
+          <groupId>net.sf.ehcache</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!--ehcache依赖-->
+    <dependency>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache</artifactId>
+      <version>${ehcache.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>slf4j-api</artifactId>
+          <groupId>org.slf4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!-- ********************** 其他相关依赖 ********************** -->
+    <!--1.junit(4.12)-->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <!--2.javax.servlet-api(4.0.0)-->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>${servlet-api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!--3.MySql数据库连接jar依赖-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.version}</version>
+    </dependency>
+    <!--4.lombok(1.18.2)  @ToString-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>RELEASE</version>
+    </dependency>
+    <!--添加jackson相关依赖-->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.vesion}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.vesion}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson.vesion}</version>
+    </dependency>
+    <!--文件上传下载-->
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${commons-fileupload.version}</version>
+    </dependency>
+    <!--Shiro权限-->
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-core</artifactId>
+      <version>${shiro.verison}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-web</artifactId>
+      <version>${shiro.verison}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-spring</artifactId>
+      <version>${shiro.verison}</version>
+    </dependency>
+
+    <!-- ********************** spring整合springMVC相关依赖 ********************** -->
+    <!--1.mybatis-spring-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <!-- ********************** JSTL依赖 ********************** -->
+    <!-- 缺少下面的这两个jar包会报java.lang.NoClassDefFoundError: javax/servlet/jsp/jstl/core/Config-->
+    <!-- 原因：org.springframework.web.servlet.view.JstlView在视图解析时需要这二个jar包-->
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>${jstl.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>${standard.version}</version>
+    </dependency>
+
+    <!-- *********************************************** -->
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.2</version>
+    </dependency>
+
+
+  </dependencies>
+
+  <build>
+    <finalName>ssm</finalName>
+    <resources>
+      <!--解决mybatis-generator-maven-plugin运行时没有将XxxMapper.xml文件放入target文件夹的问题-->
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
+      <!--解决mybatis-generator-maven-plugin运行时没有将jdbc.properites文件放入target文件夹的问题-->
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>jdbc.properties</include>
+          <include>*.xml</include>
+        </includes>
+      </resource>
+    </resources>
+
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <groupId>org.mybatis.generator</groupId>
+          <artifactId>mybatis-generator-maven-plugin</artifactId>
+          <version>${mybatis-generator-maven-plugin}</version>
+          <dependencies>
+            <!--使用Mybatis-generator插件不能使用太高版本的mysql驱动 -->
+            <dependency>
+              <groupId>mysql</groupId>
+              <artifactId>mysql-connector-java</artifactId>
+              <version>5.1.44</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <overwrite>true</overwrite>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+          <configuration>
+            <source>${maven.compiler.source}</source>
+            <target>${maven.compiler.target}</target>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
