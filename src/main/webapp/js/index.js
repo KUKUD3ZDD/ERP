@@ -330,12 +330,12 @@
                                         _html += '<ul class="treeview-menu">';
                                         $.each(subchildNodes, function (i) {
                                             var subchildNodesrow = subchildNodes[i];
-                                            _html += '<li><a class="menuItem" data-id="' + subrow.perid + '" href="' + subrow.url + '"><i class="' + "fa fa-sitemap"+  '"></i>' + subchildNodesrow.pername + '</a></li>';
+                                            _html += '<li><a class="menuItem" data-id="' + subrow.perid + '" href="page' + subrow.url + '"><i class="' + "fa fa-sitemap"+  '"></i>' + subchildNodesrow.pername + '</a></li>';
                                         });
                                         _html += '</ul>';
 
                                     } else {
-                                        _html += '<a class="menuItem" data-id="' + subrow.perid + '" href="' + subrow.url + '"><i class="' + "fa fa-sitemap"+  '"></i>' + subrow.pername + '</a>';
+                                        _html += '<a class="menuItem" data-id="' + subrow.perid + '" href="page' + subrow.url + '"><i class="' + "fa fa-sitemap"+  '"></i>' + subrow.pername + '</a>';
                                     }
                                     _html += '</li>';
                                 });

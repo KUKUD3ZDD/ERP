@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.erp.sale.mapper.BuyorderslineMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.erp.sale.model.Buyordersline" >
+    <constructor >
+      <idArg column="boid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="goodsid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="goodsname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="money" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="endtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="ender" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="storeid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="state" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="orderid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    boid, goodsid, goodsname, price, num, money, endtime, ender, storeid, state, orderid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from buyordersline
+    where boid = #{boid,jdbcType=INTEGER}
+  </select>
+    <select id="querylinePager" resultType="com.zking.erp.sale.model.Buyordersline"
+            parameterType="com.zking.erp.sale.model.Buyordersline">
+      SELECT <include refid="Base_Column_List"/>
+       FROM buyordersline WHERE orderid=#{orderid}
+    </select>
+  <select id="empList" resultType="map">
+SELECT t.`name`,t.`iid` FROM storedetail sd,store s,t_sys_emp t
+WHERE sd.`storeid`=s.`sid`
+AND s.`empuuid`=t.`iid`
+AND goodsid=#{goodsid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from buyordersline
+    where boid = #{boid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.erp.sale.model.Buyordersline" >
+    insert into buyordersline (boid, goodsid, goodsname, 
+      price, num, money,
+      ender, storeid, state, 
+      orderid)
+    values (#{boid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, 
+      #{price,jdbcType=REAL}, #{num,jdbcType=INTEGER}, #{money,jdbcType=REAL},
+      #{ender,jdbcType=VARCHAR}, #{storeid,jdbcType=INTEGER}, #{state,jdbcType=VARCHAR}, 
+      #{orderid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.erp.sale.model.Buyordersline" >
+    insert into buyordersline
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="boid != null" >
+        boid,
+      </if>
+      <if test="goodsid != null" >
+        goodsid,
+      </if>
+      <if test="goodsname != null" >
+        goodsname,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="ender != null" >
+        ender,
+      </if>
+      <if test="storeid != null" >
+        storeid,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="boid != null" >
+        #{boid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=REAL},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ender != null" >
+        #{ender,jdbcType=VARCHAR},
+      </if>
+      <if test="storeid != null" >
+        #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="insertBatch">
+    insert into buyordersline(goodsid,goodsname,price,num,money,state,orderid)
+    VALUES
+    <foreach collection="list" index="index" item="item"  separator=",">
+      ( #{item.goodsid},#{item.goodsname},#{item.price}),#{item.num}),#{item.money}),#{item.state}),#{item.orderid})
+    </foreach>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.erp.sale.model.Buyordersline" >
+    update buyordersline
+    <set >
+      <if test="goodsid != null" >
+        goodsid = #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null" >
+        goodsname = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=REAL},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ender != null" >
+        ender = #{ender,jdbcType=VARCHAR},
+      </if>
+      <if test="storeid != null" >
+        storeid = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where boid = #{boid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.erp.sale.model.Buyordersline" >
+    update buyordersline
+    set state = #{state,jdbcType=VARCHAR}
+    where boid = #{boid,jdbcType=INTEGER}
+  </update>
+</mapper>

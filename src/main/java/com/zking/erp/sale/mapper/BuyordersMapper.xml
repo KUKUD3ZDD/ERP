@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.erp.sale.mapper.BuyordersMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.erp.sale.model.Buyorders" >
+    <constructor >
+      <idArg column="bid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="createtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="checktime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="startime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="endtime" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="creater" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="checker" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="starter" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="supplierid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="totalmoney" jdbcType="REAL" javaType="java.lang.Float" />
+      <arg column="state" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bid, createtime, checktime, startime, endtime, type, creater, checker, starter,
+    supplierid, totalmoney, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from buyorders
+    where bid = #{bid,jdbcType=INTEGER}
+  </select>
+    <select id="queryListPager" resultType="com.zking.erp.sale.vo.BuyordersVo"
+            parameterType="com.zking.erp.sale.vo.BuyordersVo">
+      SELECT b.*,s.`suname` FROM buyorders b,supplier s
+      WHERE b.`supplierid`=s.`suid`
+<if test="suname!=null and ''!=suname">
+  and s.suname like concat('%',concat(#{suname},'%'))
+</if>
+      <if test="state!=null and ''!=state">
+        and state=#{state}
+      </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from buyorders
+    where bid = #{bid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.erp.sale.model.Buyorders" >
+    insert into buyorders (bid, createtime, checktime, 
+      startime,type,
+      creater, checker, starter, 
+       supplierid, totalmoney,
+      state)
+    values (#{bid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{checktime,jdbcType=TIMESTAMP}, 
+      #{startime,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR},
+      #{creater,jdbcType=VARCHAR}, #{checker,jdbcType=VARCHAR}, #{starter,jdbcType=VARCHAR}, 
+      #{supplierid,jdbcType=INTEGER}, #{totalmoney,jdbcType=REAL},
+      #{state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.erp.sale.model.Buyorders" >
+    insert into buyorders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="checktime != null" >
+        checktime,
+      </if>
+      <if test="startime != null" >
+        startime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="checker != null" >
+        checker,
+      </if>
+      <if test="starter != null" >
+        starter,
+      </if>
+      <if test="supplierid != null" >
+        supplierid,
+      </if>
+      <if test="totalmoney != null" >
+        totalmoney,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checktime != null" >
+        #{checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startime != null" >
+        #{startime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null" >
+        #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="starter != null" >
+        #{starter,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="totalmoney != null" >
+        #{totalmoney,jdbcType=REAL},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.erp.sale.model.Buyorders" >
+    update buyorders
+    <set >
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checktime != null" >
+        checktime = #{checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startime != null" >
+        startime = #{startime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="checker != null" >
+        checker = #{checker,jdbcType=VARCHAR},
+      </if>
+      <if test="starter != null" >
+        starter = #{starter,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        supplierid = #{supplierid,jdbcType=INTEGER},
+      </if>
+      <if test="totalmoney != null" >
+        totalmoney = #{totalmoney,jdbcType=REAL},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.erp.sale.model.Buyorders" >
+    update buyorders
+    set state = #{state,jdbcType=VARCHAR}
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+</mapper>

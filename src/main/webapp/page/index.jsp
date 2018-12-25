@@ -73,8 +73,8 @@
     <div id="content-wrapper" class="content-wrapper">
         <div class="content-tabs">
             <button class="roll-nav roll-left tabLeft">
-                <i class="fa fa-backward"></i>
-            </button>
+            <i class="fa fa-backward"></i>
+        </button>
             <nav class="page-tabs menuTabs">
                 <div class="page-tabs-content" style="margin-left: 0px;">
                     <a href="javascript:;" class="menuTab active" data-id="book01.html">首页</a>
@@ -100,7 +100,7 @@
         <div class="content-iframe" style="overflow: hidden;">
             <div class="mainContent" id="content-main" style="margin: 10px; margin-bottom: 0px; padding: 0;">
                 <%--<iframe class="LRADMS_iframe" width="100%" height="100%" src="404.html" frameborder="0" data-id="book01.html"></iframe>--%>
-               <a href="${ctx}/Permission/queryLstPer">ccc</a>
+               <a href="${ctx}/Permission/queryLstPer"></a>
             </div>
         </div>
     </div>

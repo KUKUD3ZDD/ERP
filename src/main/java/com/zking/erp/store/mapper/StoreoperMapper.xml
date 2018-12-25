@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.erp.store.mapper.StoreoperMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.erp.store.model.Storeoper" >
+    <constructor >
+      <idArg column="stoid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="empname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="opertime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="storename" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="goodsname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stoid, empname, opertime, storename, goodsname, num, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from storeoper
+    where stoid = #{stoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from storeoper
+    where stoid = #{stoid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.erp.store.model.Storeoper" >
+    insert into storeoper (stoid, empname, opertime,
+      storename, goodsname, num,
+      type)
+    values (#{stoid,jdbcType=INTEGER}, #{empname,jdbcType=INTEGER}, #{opertime,jdbcType=TIMESTAMP},
+      #{storename,jdbcType=INTEGER}, #{goodsname,jdbcType=INTEGER}, #{num,jdbcType=INTEGER},
+      #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.erp.store.model.Storeoper" >
+    insert into storeoper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stoid != null" >
+        stoid,
+      </if>
+      <if test="empid != null" >
+        empid,
+      </if>
+      <if test="opertime != null" >
+        opertime,
+      </if>
+      <if test="storeid != null" >
+        storeid,
+      </if>
+      <if test="goodsid != null" >
+        goodsid,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stoid != null" >
+        #{stoid,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null" >
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="opertime != null" >
+        #{opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeid != null" >
+        #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.erp.store.model.Storeoper" >
+    update storeoper
+    <set >
+      <if test="empid != null" >
+        empid = #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="opertime != null" >
+        opertime = #{opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storeid != null" >
+        storeid = #{storeid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null" >
+        goodsid = #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stoid = #{stoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.erp.store.model.Storeoper" >
+    update storeoper
+    set empid = #{empid,jdbcType=INTEGER},
+      opertime = #{opertime,jdbcType=TIMESTAMP},
+      storeid = #{storeid,jdbcType=INTEGER},
+      goodsid = #{goodsid,jdbcType=INTEGER},
+      num = #{num,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR}
+    where stoid = #{stoid,jdbcType=INTEGER}
+  </update>
+</mapper>
