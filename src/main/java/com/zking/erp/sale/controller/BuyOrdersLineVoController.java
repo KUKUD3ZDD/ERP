@@ -1,12 +1,13 @@
 package com.zking.erp.sale.controller;
 
 import com.zking.erp.base.util.AjaxUtil;
+import com.zking.erp.basic.model.Goods;
+import com.zking.erp.basic.service.IGoodsService;
+import com.zking.erp.basic.vo.GoodsVo;
 import com.zking.erp.sale.model.Buyorders;
 import com.zking.erp.sale.model.Buyordersline;
-import com.zking.erp.sale.model.Goods;
 import com.zking.erp.sale.service.IBuyordersService;
 import com.zking.erp.sale.service.IBuyorderslineService;
-import com.zking.erp.sale.service.IGoodsService;
 import com.zking.erp.sale.vo.BuyOrdersLineVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

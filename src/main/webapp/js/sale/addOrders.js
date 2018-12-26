@@ -86,7 +86,7 @@ layui.use(['form', 'layer', 'laydate','element','jquery','table'], function(){
 
     //初始客户
     function initSupplier(){
-        $.get(projectName+'/supplier/querysupplier',{type:1,},function(data){
+        $.get(projectName+'/Supplier/querysupplier',{type:1,},function(data){
             //console.log(data);
          var clientname="";
          if(data.data!=null){
@@ -103,6 +103,8 @@ layui.use(['form', 'layer', 'laydate','element','jquery','table'], function(){
              form.render();
          }
         });
+
+
     }
 
     //提交订单

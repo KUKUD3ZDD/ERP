@@ -26,10 +26,10 @@
     where boid = #{boid,jdbcType=INTEGER}
   </select>
     <select id="querylinePager" resultType="com.zking.erp.sale.model.Buyordersline"
-            parameterType="com.zking.erp.sale.model.Buyordersline">
-      SELECT <include refid="Base_Column_List"/>
-       FROM buyordersline WHERE orderid=#{orderid}
-    </select>
+                 parameterType="com.zking.erp.sale.model.Buyordersline">
+  SELECT <include refid="Base_Column_List"/>
+  FROM buyordersline WHERE orderid=#{orderid}
+</select>
   <select id="empList" resultType="map">
 SELECT t.`name`,t.`iid` FROM storedetail sd,store s,t_sys_emp t
 WHERE sd.`storeid`=s.`sid`

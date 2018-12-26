@@ -1,16 +1,16 @@
 package com.zking.erp.sale.controller;
 
 import com.zking.erp.base.util.PageBean;
+import com.zking.erp.repertory.model.Storedetail;
+import com.zking.erp.repertory.model.Storeoper;
+import com.zking.erp.repertory.service.IStoredetailService;
+import com.zking.erp.repertory.service.IStoreoperService;
 import com.zking.erp.sale.model.Buyordersline;
 import com.zking.erp.sale.model.Returnorders;
 import com.zking.erp.sale.model.Returnordersline;
 import com.zking.erp.sale.service.IBuyorderslineService;
 import com.zking.erp.sale.service.IReturnordersService;
 import com.zking.erp.sale.service.IReturnorderslineService;
-import com.zking.erp.store.model.Storedetail;
-import com.zking.erp.store.model.Storeoper;
-import com.zking.erp.store.service.IStoredetailService;
-import com.zking.erp.store.service.StoreoperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +34,7 @@ public class ReturnorderslineController {
     @Autowired
     private IStoredetailService storedetailService;
     @Autowired
-    private StoreoperService storeoperService;
+    private IStoreoperService storeoperService;
     @Autowired
     private IBuyorderslineService buyorderslineService;
 
@@ -57,7 +57,7 @@ public class ReturnorderslineController {
     //修改订单详细状态       入库:修改退货订单和订单详细的状态,增加库存,添加库存变动记录
     @RequestMapping("/editReturnOrdersline")
     @ResponseBody
-    public Map<String,Object> editOrders(Returnorders returnorders, Returnordersline returnordersline, Storeoper storeoper, Storedetail storedetail,Buyordersline buyordersline){
+    public Map<String,Object> editOrders(int num1,Returnorders returnorders, Returnordersline returnordersline, Storeoper storeoper, Storedetail storedetail, Buyordersline buyordersline){
         //出库时间
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String endtime = df.format(new Date());
@@ -89,7 +89,7 @@ public class ReturnorderslineController {
         }
 
         //增加库存
-        int num=storedetail.getNum()+1;
+        int num=storedetail.getNum()+num1;
         storedetail.setNum(num);
         storedetailService.updateByPrimaryKey(storedetail);
         System.out.println("3:"+storedetail);

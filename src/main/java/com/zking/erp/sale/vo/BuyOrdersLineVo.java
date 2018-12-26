@@ -1,7 +1,7 @@
 package com.zking.erp.sale.vo;
 
+import com.zking.erp.basic.model.Goods;
 import com.zking.erp.sale.model.Buyordersline;
-import com.zking.erp.sale.model.Goods;
 
 import java.util.List;
 

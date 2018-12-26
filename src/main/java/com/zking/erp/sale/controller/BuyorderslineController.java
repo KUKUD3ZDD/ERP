@@ -1,15 +1,15 @@
 package com.zking.erp.sale.controller;
 
 import com.zking.erp.base.util.PageBean;
+import com.zking.erp.repertory.model.Storedetail;
+import com.zking.erp.repertory.model.Storeoper;
+import com.zking.erp.repertory.service.IStoredetailService;
+import com.zking.erp.repertory.service.IStoreoperService;
 import com.zking.erp.sale.model.Buyorders;
 import com.zking.erp.sale.model.Buyordersline;
 import com.zking.erp.sale.service.IBuyordersService;
 import com.zking.erp.sale.service.IBuyorderslineService;
-import com.zking.erp.sale.vo.BuyordersVo;
-import com.zking.erp.store.model.Storedetail;
-import com.zking.erp.store.model.Storeoper;
-import com.zking.erp.store.service.IStoredetailService;
-import com.zking.erp.store.service.StoreoperService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +30,7 @@ public class BuyorderslineController {
     @Autowired
     private IStoredetailService storedetailService;
     @Autowired
-    private StoreoperService storeoperService;
+    private IStoreoperService storeoperService;
 
     @RequestMapping("/del")
     @ResponseBody
@@ -45,8 +45,9 @@ public class BuyorderslineController {
     //出库  //修改订单和订单详细的状态,结束日期,库管员?,仓库id,并减少库存
     @RequestMapping("/update")
     @ResponseBody
-    public Map<String,Object> editOrdersline(Buyorders buyorders,Buyordersline buyordersline, Storedetail storedetail,Storeoper storeoper){
+    public Map<String,Object> editOrdersline(Storedetail storedetail,Buyorders buyorders, Buyordersline buyordersline, Storeoper storeoper,@Param("num1") int num1){
         System.out.println("出库");
+        System.out.println(num1);
         //出库时间
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String endtime = df.format(new Date());
@@ -78,7 +79,11 @@ public class BuyorderslineController {
             System.out.println("1:"+buyorders);
         }
         //减少库存
-        int num=storedetail.getNum()-1;
+        Storedetail storedetails = storedetailService.StoreList(storedetail);
+        int count=storedetails.getNum(); //库存表里的数量
+        System.out.println("count:"+count);
+        int num=count-num1;
+        System.out.println(num);
         storedetail.setNum(num);
         storedetailService.updateByPrimaryKey(storedetail);
         System.out.println("3:"+storedetail);

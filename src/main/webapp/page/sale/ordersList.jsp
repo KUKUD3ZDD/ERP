@@ -32,8 +32,8 @@
         <input type="text" id="suname" name="suname" placeholder="请输入" autocomplete="off" class="layui-input">
     </div>
     <button id="cx" class="layui-btn layui-btn-normal" >
-        <i class="layui-icon" style=" color:white;">&#xe615;搜索</i>
-    </button>
+    <i class="layui-icon" style=" color:white;">&#xe615;搜索</i>
+</button>
 </div>
 <table id="demo" lay-filter="test"></table>
 <button class="layui-btn layui-btn-normal" id="add">录入销售订单</button>

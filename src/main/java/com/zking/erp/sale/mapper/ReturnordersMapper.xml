@@ -28,7 +28,7 @@
     <select id="queryReturnPager" resultType="com.zking.erp.sale.vo.ReturnordersVo"
             parameterType="com.zking.erp.sale.vo.ReturnordersVo">
 SELECT r.*,s.`suname` FROM returnorders r,supplier s
-WHERE r.supplierid=s.`suid`
+WHERE r.supplierid=s.`suid` order by createtime desc
       <if test="suname!=null and ''!=suname">
         and s.suname like concat('%',concat(#{suname},'%'))
       </if>

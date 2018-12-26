@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.erp.basic.mapper.GoodsTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.erp.basic.model.GoodsType" >
+    <constructor >
+      <idArg column="gtid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="gtname" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    gtid, gtname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodstype
+    where gtid = #{gtid,jdbcType=INTEGER}
+  </select>
+  <select id="queryListGoodsTypePager" resultType="com.zking.erp.basic.model.GoodsType"
+          parameterType="com.zking.erp.basic.model.GoodsType">
+    SELECT <include refid="Base_Column_List" /> FROM goodstype WHERE 1=1
+    <if test="gtname!=null and gtname!=''">
+      AND goodstype LIKE concat(concat('%',#{gtname}),'%')
+    </if>
+  </select>
+  <update id="editGoodsType" parameterType="com.zking.erp.basic.model.GoodsType">
+    update goodstype
+    <set >
+      <if test="gtname != null" >
+        gtname = #{gtname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gtid = #{gtid,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goodstype
+    where gtid = #{gtid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.erp.basic.model.GoodsType" >
+    insert into goodstype (gtname)
+    values (#{gtname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.erp.basic.model.GoodsType" >
+    insert into goodstype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gtid != null" >
+        gtid,
+      </if>
+      <if test="gtname != null" >
+        gtname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gtid != null" >
+        #{gtid,jdbcType=INTEGER},
+      </if>
+      <if test="gtname != null" >
+        #{gtname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.erp.basic.model.GoodsType" >
+    update goodstype
+    <set >
+      <if test="gtname != null" >
+        gtname = #{gtname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gtid = #{gtid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.erp.basic.model.GoodsType" >
+    update goodstype
+    set gtname = #{gtname,jdbcType=VARCHAR}
+    where gtid = #{gtid,jdbcType=INTEGER}
+  </update>
+</mapper>

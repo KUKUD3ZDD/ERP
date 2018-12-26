@@ -12,7 +12,7 @@ layui.use(['form', 'layer', 'laydate','element','jquery','table'], function() {
 
     //初始仓库下拉框
     function initStore(){
-        $.get(projectName+'/store/querystore',{type:1,},function(data){
+        $.get(projectName+'/Store/queryListStorePager',{type:1,},function(data){
             //console.log(data);
             var clientname="";
             if(data.data!=null){
@@ -55,7 +55,7 @@ layui.use(['form', 'layer', 'laydate','element','jquery','table'], function() {
         }else{
         $.ajax({
             url: projectName + "/ordersline/update",
-            data: {'bid':bid,'boid':boid,'goodsname':goodsname,'storename':storename,'num':num,'goodsid':goodsid},
+            data: {'bid':bid,'boid':boid,'goodsname':goodsname,'storename':storename,'num1':num,'goodsid':goodsid},
             dataType: 'json',
             type: 'post',
             async: false,

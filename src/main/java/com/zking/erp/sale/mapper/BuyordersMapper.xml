@@ -25,7 +25,7 @@
     select 
     <include refid="Base_Column_List" />
     from buyorders
-    where bid = #{bid,jdbcType=INTEGER}
+    where bid = #{bid,jdbcType=INTEGER} order by createtime desc
   </select>
     <select id="queryListPager" resultType="com.zking.erp.sale.vo.BuyordersVo"
             parameterType="com.zking.erp.sale.vo.BuyordersVo">

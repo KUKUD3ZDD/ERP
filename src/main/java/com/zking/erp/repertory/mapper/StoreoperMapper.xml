@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zking.erp.repertory.mapper.StoreoperMapper" >
+  <resultMap id="BaseResultMap" type="com.zking.erp.repertory.model.Storeoper" >
+    <constructor >
+      <idArg column="stoid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="empname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="opertime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="storename" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="goodsname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    stoid, empname, opertime, storename, goodsname, num, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from storeoper
+    where stoid = #{stoid,jdbcType=INTEGER}
+  </select>
+  <select id="queryStoreoperPager" resultType="com.zking.erp.repertory.vo.StoreoperVo"
+          parameterType="com.zking.erp.repertory.vo.StoreoperVo">
+    SELECT <include refid="Base_Column_List"/> FROM storeoper WHERE 1=1
+    <if test="null!=empname and  ''!=empname">
+      AND empname=#{empname}
+    </if>
+    <if test="null!=opertimeFW and  ''!=opertimeFW">
+      AND  LEFT(opertime,10) BETWEEN LEFT(#{opertimeFW},10)
+      AND RIGHT(#{opertimeFW},10)
+    </if>
+    <if test="null!=storename and  ''!=storename">
+      AND  storename=#{storename}
+    </if>
+    <if test="null!=goodsname and  ''!=goodsname">
+      AND goodsname LIKE concat(concat('%',#{goodsname}),'%')
+    </if>
+    <if test="null!=type and  ''!=type">
+      AND  type=#{type}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from storeoper
+    where stoid = #{stoid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zking.erp.repertory.model.Storeoper" >
+    insert into storeoper (empname, opertime,
+      storename, goodsname, num, 
+      type)
+    values (#{empname,jdbcType=VARCHAR}, #{opertime,jdbcType=TIMESTAMP},
+      #{storename,jdbcType=VARCHAR}, #{goodsname,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zking.erp.repertory.model.Storeoper" >
+    insert into storeoper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stoid != null" >
+        stoid,
+      </if>
+      <if test="empname != null" >
+        empname,
+      </if>
+      <if test="opertime != null" >
+        opertime,
+      </if>
+      <if test="storename != null" >
+        storename,
+      </if>
+      <if test="goodsname != null" >
+        goodsname,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stoid != null" >
+        #{stoid,jdbcType=INTEGER},
+      </if>
+      <if test="empname != null" >
+        #{empname,jdbcType=VARCHAR},
+      </if>
+      <if test="opertime != null" >
+        #{opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storename != null" >
+        #{storename,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zking.erp.repertory.model.Storeoper" >
+    update storeoper
+    <set >
+      <if test="empname != null" >
+        empname = #{empname,jdbcType=VARCHAR},
+      </if>
+      <if test="opertime != null" >
+        opertime = #{opertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="storename != null" >
+        storename = #{storename,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null" >
+        goodsname = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stoid = #{stoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zking.erp.repertory.model.Storeoper" >
+    update storeoper
+    set empname = #{empname,jdbcType=VARCHAR},
+      opertime = #{opertime,jdbcType=TIMESTAMP},
+      storename = #{storename,jdbcType=VARCHAR},
+      goodsname = #{goodsname,jdbcType=VARCHAR},
+      num = #{num,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR}
+    where stoid = #{stoid,jdbcType=INTEGER}
+  </update>
+</mapper>
