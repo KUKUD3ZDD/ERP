@@ -70,6 +70,7 @@ layui.use(['form', 'layer', 'laydate','element','jquery','table'], function(){
      //获取序号
     table.on('row(tabletest)', function(obj){
         index=obj.data.goodsid;//给index赋值序号
+        console.log(index);
     });
 
     //点击增加按钮
@@ -103,8 +104,6 @@ layui.use(['form', 'layer', 'laydate','element','jquery','table'], function(){
              form.render();
          }
         });
-
-
     }
 
     //提交订单
@@ -114,8 +113,10 @@ layui.use(['form', 'layer', 'laydate','element','jquery','table'], function(){
         if(""==suname){
             layer.msg("请先选择客户");
     }else {
+            console.log(index);
+            console.log(11111);
             $.ajax({
-                url: projectName + "/query/add?supplierid="+suname,
+                url: projectName + "/query/add?supplierid="+suname+"&index="+index,
                 dataType: 'json',
                 type: 'post',
                 async: false,

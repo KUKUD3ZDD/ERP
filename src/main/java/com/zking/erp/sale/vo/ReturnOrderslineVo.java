@@ -7,6 +7,15 @@ import java.util.List;
 
 public class ReturnOrderslineVo extends Returnordersline {
     private List<Goods> goods;
+    private Integer sid;
+
+    public Integer getSid() {
+        return sid;
+    }
+
+    public void setSid(Integer sid) {
+        this.sid = sid;
+    }
 
     public List<Goods> getGoods() {
         return goods;

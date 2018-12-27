@@ -97,9 +97,13 @@ public class BuyOrdersLineVoController {
         Goods goods1 = goodsService.selectByPrimaryKey(goodsid);//根据商品id获取商品
         goods1.setUnit("true");//选中默认商品
         OrdersLineVos.get(index-1).setPrice(goods1.getOutprice());//给价格赋值
+        OrdersLineVos.get(index-1).setSid(goods1.getGid());
+        //System.out.println("gid:"+gid);
         OrdersLineVos.get(index-1).setNum(0);
         OrdersLineVos.get(index-1).setMoney(0f);
         List<Goods> querygoods =  OrdersLineVos.get(index-1).getGoods();//序号为1,list下标为0
+        System.out.println("querygoods:"+querygoods);
+        //Integer gid = querygoods.get(index - 1).getGid();
         OrdersLineVos.get(index-1).setGoodsname(goods1.getGname());
          for(int i=0 ; i<querygoods.size(); i++){
           querygoods.get(i).setUnit("");//默认清空
@@ -116,7 +120,7 @@ public class BuyOrdersLineVoController {
 //增加订单详情
     @RequestMapping("/add")
     @ResponseBody
-    public Map<String,Object> insertBatch(Buyorders buyorders){
+    public Map<String,Object> insertBatch(Buyorders buyorders,int index){
         Map<String,Object> map=new HashMap<String,Object>();
         //订单:订单编号,创建日期,订单类型,下单员,销售员,客户,总金额,订单状态,
         //订单详情:商品编号,商品名称,价格,数量,金额,订单状态,订单id
@@ -139,14 +143,16 @@ public class BuyOrdersLineVoController {
         //添加订单详细
         buyordersline.setState("未出库");
         for ( BuyOrdersLineVo  vo :OrdersLineVos ) {
+            //System.out.println("gid:"+vo.getGoodsid());
             String boid=UUID.randomUUID().toString().replace("-","");
             buyordersline.setBoid(boid);
             buyordersline.setPrice(vo.getPrice());
             buyordersline.setMoney(vo.getMoney());
             buyordersline.setNum(vo.getNum());
-            buyordersline.setGoodsid(vo.getGoodsid());
+           // buyordersline.setGoodsid(vo.getGoodsid());
             buyordersline.setGoodsname(vo.getGoodsname());
             buyordersline.setOrderid(bid);
+            buyordersline.setGoodsid(OrdersLineVos.get(index-1).getSid());
             buyordersline.setStoreid(vo.getStoreid());
             //buyorders.setTotalmoney(vo.getMoney());
             buyorderslineService.insert(buyordersline);

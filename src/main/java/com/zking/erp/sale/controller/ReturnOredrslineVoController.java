@@ -94,9 +94,10 @@ public class ReturnOredrslineVoController {
         Goods goods1 = goodsService.selectByPrimaryKey(goodsid);//根据商品id获取商品
         goods1.setUnit("true");//选中默认商品
         ReturnOrdersLineVos.get(index-1).setPrice(goods1.getOutprice());//给价格赋值
-
+        ReturnOrdersLineVos.get(index-1).setSid(goods1.getGid());
         ReturnOrdersLineVos.get(index-1).setNum(0);
         List<Goods> querygoods =  ReturnOrdersLineVos.get(index-1).getGoods();//序号为1,list下标为0
+        System.out.println("query:"+querygoods);
         ReturnOrdersLineVos.get(index-1).setGoodsname(goods1.getGname());
         for(int i=0 ; i<querygoods.size(); i++){
             querygoods.get(i).setUnit("");//默认清空
@@ -113,8 +114,8 @@ public class ReturnOredrslineVoController {
 //增加订单详情
     @RequestMapping("/add")
     @ResponseBody
-    public Map<String,Object> insertBatch(Returnorders returnorders){
-        System.out.println("lululululu");
+    public Map<String,Object> insertBatch(Returnorders returnorders,int index){
+        System.out.println("index:"+index);
         Map<String,Object> map=new HashMap<String,Object>();
         //订单:订单编号,创建日期,订单类型,下单员,销售员,客户,总金额,订单状态,
         //订单详情:商品编号,商品名称,价格,数量,金额,订单状态,订单id
@@ -126,7 +127,7 @@ public class ReturnOredrslineVoController {
             sum+=vo.getMoney();
         }
         //添加退货订单
-          String bid= UUID.randomUUID().toString().replace("-","");
+        String bid= UUID.randomUUID().toString().replace("-","");
         returnorders.setRid(bid);
         returnorders.setType("销售");
         returnorders.setState("未审核");
@@ -141,9 +142,10 @@ public class ReturnOredrslineVoController {
             returnordersline.setPrice(vo.getPrice());
             returnordersline.setMoney(vo.getMoney());
             returnordersline.setNum(vo.getNum());
-            returnordersline.setGoodsid(vo.getGoodsid());
+           // returnordersline.setGoodsid(vo.getGoodsid());
             returnordersline.setGoodsname(vo.getGoodsname());
             returnordersline.setOrderid(bid);
+            returnordersline.setGoodsid(ReturnOrdersLineVos.get(index-1).getSid());
             returnordersline.setStoreid(vo.getStoreid());
             //buyorders.setTotalmoney(vo.getMoney());
             returnorderslineService.insert(returnordersline);
